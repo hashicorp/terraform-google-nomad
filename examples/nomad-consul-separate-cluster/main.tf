@@ -3,8 +3,8 @@
 # These templates show an example of how to use the nomad-cluster module to deploy a Nomad cluster in GCP. This cluster
 # connects to Consul running in a separate cluster.
 #
-# We deploy two Managed Instance Groups for Nomad: one with a small number of Nomad server nodes and one with a
-# larger number of Nomad client nodes. Note that these templates assume that the Image you provide via the
+# We deploy two Managed Instance Groups for Nomad: one with a small number of Nomad server nodes and one with n
+# arbitrary number of Nomad client nodes. Note that these templates assume that the Image you provide via the
 # nomad_image input variable is built from the examples/nomad-consul-image/nomad-consul.json Packer template.
 #
 # We also deploy one Managed Instance Group for Consul which has a small number of Consul server nodes. Note that these

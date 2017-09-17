@@ -1,8 +1,7 @@
 #!/bin/bash
 # This script is meant to be run in the Startup Script of each Compute Instance while it's booting. The script uses the
-# run-consul script to configure and start Consul in client mode and the run-nomad script to configure and start Nomad
-# in client mode. Note that this script assumes it's running in a Compute Instance built from the Packer template in
-# examples/nomad-consul-image/nomad-consul.json.
+# run-nomad and run-consul scripts to configure and start Consul and Nomad in server mode. Note that this script
+# assumes it's running in a Google IMage built from the Packer template in examples/nomad-consul-image/nomad-consul.json.
 
 set -e
 
@@ -11,6 +10,5 @@ set -e
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 # These variables are passed in via Terraform template interplation
-/opt/consul/bin/run-consul --client --cluster-tag-name "${consul_server_cluster_tag_name}"
-/opt/nomad/bin/run-nomad --client
-
+/opt/consul/bin/run-consul --server --cluster-tag-name "${consul_server_cluster_tag_name}"
+/opt/nomad/bin/run-nomad --server --num-servers "${num_servers}"
