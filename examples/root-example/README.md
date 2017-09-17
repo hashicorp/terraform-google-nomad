@@ -8,7 +8,7 @@ cluster consists of two Manged Instance Groups: one with a small number of Nomad
 responsible for being part of the [consensus protocol](https://www.nomadproject.io/docs/internals/consensus.html), and
 one with an arbitrary number of Nomad and Consul client nodes, which are used to run jobs:
 
-![Nomad architecture](https://github.com/hashicorp/terraform-google-nomad/master/_docs/architecture-nomad-consul-colocated.png?raw=true)
+![Nomad architecture](https://github.com/hashicorp/terraform-google-nomad/blob/master/_docs/architecture-nomad-consul-colocated.png?raw=true)
 
 You will need to create a [Google Image](https://cloud.google.com/compute/docs/images) that has Nomad and Consul
 installed, which you can do using the [nomad-consul-image example](
