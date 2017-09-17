@@ -54,6 +54,21 @@ module "nomad_and_consul_servers" {
   allowed_inbound_tags_dns = ["${var.nomad_client_cluster_name}"]
 }
 
+# Enable Firewall Rules to open up Nomad-specific ports
+module "nomad_firewall_rules" {
+  source = "modules/nomad-firewall-rules"
+
+  gcp_zone = "${var.gcp_zone}"
+  cluster_name = "${var.nomad_consul_server_cluster_name}"
+  cluster_tag_name = "${var.nomad_consul_server_cluster_name}"
+
+  http_port = 4646
+  rpc_port = 4647
+  serf_port = 4648
+
+  allowed_inbound_cidr_blocks_http = ["0.0.0.0/0"]
+}
+
 # Render the Startup Script that will run on each Nomad Instance on boot. This script will configure and start Nomad.
 data "template_file" "startup_script_nomad_consul_server" {
   template = "${file("${path.module}/examples/root-example/startup-script-nomad-consul-server.sh")}"

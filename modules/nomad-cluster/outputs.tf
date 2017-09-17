@@ -1,3 +1,7 @@
+output "cluster_name" {
+  value = "${var.cluster_name}"
+}
+
 output "cluster_tag_name" {
   value = "${var.cluster_name}"
 }
@@ -15,25 +19,25 @@ output "instance_template_url" {
 }
 
 output "firewall_rule_allow_inbound_http_url" {
-  value = "${google_compute_firewall.allow_inbound_http.self_link}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_http_url}"
 }
 
 output "firewall_rule_allow_inbound_http_id" {
-  value = "${google_compute_firewall.allow_inbound_http.id}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_http_id}"
 }
 
 output "firewall_rule_allow_inbound_rpc_url" {
-  value = "${google_compute_firewall.allow_inbound_rpc.self_link}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_rpc_url}"
 }
 
 output "firewall_rule_allow_inbound_rpc_id" {
-  value = "${google_compute_firewall.allow_inbound_rpc.id}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_rpc_id}"
 }
 
 output "firewall_rule_allow_inbound_serf_url" {
-  value = "${google_compute_firewall.allow_inbound_serf.self_link}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_serf_url}"
 }
 
 output "firewall_rule_allow_inbound_serf_id" {
-  value = "${google_compute_firewall.allow_inbound_serf.id}"
+  value = "${module.firewall_rules.firewall_rule_allow_inbound_serf_id}"
 }
