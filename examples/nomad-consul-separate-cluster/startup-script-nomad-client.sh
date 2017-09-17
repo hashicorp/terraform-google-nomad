@@ -1,8 +1,8 @@
 #!/bin/bash
-# This script is meant to be run in the User Data of each EC2 Instance while it's booting. The script uses the
+# This script is meant to be run in the Startup Script of each Compute Instance while it's booting. The script uses the
 # run-consul script to configure and start Consul in client mode and the run-nomad script to configure and start Nomad
-# in client mode. Note that this script assumes it's running in an AMI built from the Packer template in
-# examples/nomad-consul-ami/nomad-consul.json.
+# in client mode. Note that this script assumes it's running in a Compute Instance built from the Packer template in
+# examples/nomad-consul-image/nomad-consul.json.
 
 set -e
 
