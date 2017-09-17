@@ -8,7 +8,7 @@ consists of two Managed Instance Groups: one with a small number of Nomad server
 part of the [consensus quorum](https://www.nomadproject.io/docs/internals/consensus.html), and one with a larger number
 of Nomad client nodes, which are used to run jobs:
 
-![Nomad architecture](https://github.com/hashicorp/terraform-google-nomad/master/_docs/architecture-nomad-consul-separate.png?raw=true)
+![Nomad architecture](https://github.com/hashicorp/terraform-google-nomad/blob/master/_docs/architecture-nomad-consul-separate.png?raw=true)
 
 You will need to create a [Google Image](https://cloud.google.com/compute/docs/images) that has Nomad and Consul installed,
 which you can do using the [nomad-consul-image example](
