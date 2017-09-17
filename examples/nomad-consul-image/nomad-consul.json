@@ -4,8 +4,8 @@
     "project_id": null,
     "zone": null,
     "nomad_version": "0.6.3",
-    "consul_module_version": "v0.0.2",
-    "consul_version": "0.9.2",
+    "consul_module_version": "v0.0.1",
+    "consul_version": "0.9.3"
   },
   "builders": [{
     "type": "googlecompute",

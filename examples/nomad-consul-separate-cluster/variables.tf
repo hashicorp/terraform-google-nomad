@@ -66,7 +66,7 @@ variable "nomad_server_cluster_machine_type" {
 
 variable "nomad_client_cluster_size" {
   description = "The number of nodes to have in the Nomad client cluster. This number is arbitrary."
-  default = 3
+  default = 2
 }
 
 variable "nomad_client_machine_type" {

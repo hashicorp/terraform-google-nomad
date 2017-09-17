@@ -6,8 +6,8 @@ set -e
 readonly NOMAD_CONFIG_FILE="default.hcl"
 readonly SUPERVISOR_CONFIG_PATH="/etc/supervisor/conf.d/run-nomad.conf"
 
-readonly GCP_COMPUTE_INSTANCE_METADATA_URL="http://metadata.google.internal/computeMetadata/v1"
-readonly GCP_METADATA_REQUEST_HEADER="Metadata-Flavor: Google"
+readonly COMPUTE_INSTANCE_METADATA_URL="http://metadata.google.internal/computeMetadata/v1"
+readonly GOOGLE_CLOUD_METADATA_REQUEST_HEADER="Metadata-Flavor: Google"
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_NAME="$(basename "$0")"

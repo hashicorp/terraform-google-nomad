@@ -1,12 +1,16 @@
-output "num_nomad_servers" {
+output "gcp_project" {
+  value = "${var.gcp_project}"
+}
+
+output "gcp_zone" {
+  value = "${var.gcp_zone}"
+}
+
+output "nomad_server_cluster_size" {
   value = "${var.nomad_server_cluster_size}"
 }
 
-output "num_consul_servers" {
-  value = "${var.consul_server_cluster_size}"
-}
-
-output "num_nomad_clients" {
+output "nomad_client_cluster_size" {
   value = "${var.nomad_client_cluster_size}"
 }
 
