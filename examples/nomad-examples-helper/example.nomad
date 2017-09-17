@@ -14,7 +14,7 @@
 job "example" {
   # The "region" parameter specifies the region in which to execute the job. If
   # omitted, this inherits the default region name of "global". Note that this example job
-  # is hard-coded to us-east-1, so if you are running your example elsewhere, make
+  # is hard-coded to us-west1-a, so if you are running your example elsewhere, make
   # sure to update this setting, as well as the datacenters setting.
   region = "us-west1"
 

@@ -110,7 +110,7 @@ function get_instance_zone {
 function get_instance_region {
   # Trim the last two characters of a zone (e.g. us-west1-a) to get the region (e.g. us-west1)
   # Head command comes from https://unix.stackexchange.com/a/215156/129208
-  get_instance_zone | head -c -2
+  get_instance_zone | head -c -3
 }
 
 # Get the ID of the current Compute Instance

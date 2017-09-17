@@ -63,7 +63,7 @@ data "template_file" "startup_script_nomad_server" {
 
   vars {
     num_servers                      = "${var.nomad_server_cluster_size}"
-    consul_server_cluster_tag_name   = "${var.nomad_server_cluster_name}"
+    consul_server_cluster_tag_name   = "${var.consul_server_cluster_name}"
   }
 }
 
