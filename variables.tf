@@ -21,7 +21,7 @@ variable "nomad_consul_server_cluster_name" {
   description = "The name of the Nomad/Consul Server cluster. All resources will be namespaced by this value. E.g. nomad-server-prod"
 }
 
-variable "nomad_server_source_image" {
+variable "nomad_consul_server_source_image" {
   description = "The Google Image used to launch each node in the Nomad/Consul Server cluster."
 }
 
@@ -56,7 +56,7 @@ variable "nomad_consul_server_cluster_machine_type" {
 
 variable "nomad_client_cluster_size" {
   description = "The number of nodes to have in the Nomad client cluster. This number is arbitrary."
-  default = 2
+  default = 3
 }
 
 variable "nomad_client_machine_type" {

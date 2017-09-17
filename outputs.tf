@@ -6,7 +6,7 @@ output "gcp_zone" {
   value = "${var.gcp_zone}"
 }
 
-output "nomad_consul_server_cluster_size" {
+output "nomad_server_cluster_size" {
   value = "${var.nomad_consul_server_cluster_size}"
 }
 
@@ -14,7 +14,7 @@ output "nomad_client_cluster_size" {
   value = "${var.nomad_client_cluster_size}"
 }
 
-output "nomad_consul_server_cluster_tag_name" {
+output "nomad_server_cluster_tag_name" {
   value = "${var.nomad_consul_server_cluster_name}"
 }
 
@@ -22,7 +22,7 @@ output "nomad_client_cluster_tag_name" {
   value = "${var.nomad_client_cluster_name}"
 }
 
-output "nomad_consul_server_instance_group_id" {
+output "nomad_server_instance_group_id" {
   value = "${module.nomad_and_consul_servers.instance_group_name}"
 }
 

@@ -38,7 +38,7 @@ module "nomad_and_consul_servers" {
   cluster_tag_name = "${var.nomad_consul_server_cluster_name}"
   machine_type = "${var.nomad_consul_server_cluster_machine_type}"
 
-  source_image = "${var.nomad_server_source_image}"
+  source_image = "${var.nomad_consul_server_source_image}"
   startup_script = "${data.template_file.startup_script_nomad_consul_server.rendered}"
 
   # WARNING!
