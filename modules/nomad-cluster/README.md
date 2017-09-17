@@ -65,7 +65,26 @@ sample code. Note that if you want to run Nomad and Consul on the same cluster, 
 example](https://github.com/hashicorp/terraform-aws-nomad/tree/master/MAIN.md) example instead.
 
 
+## Gotchas
 
+We strongly recommend that you set `assign_public_ip_addresses` to `false` so that your Consul nodes are NOT addressable
+from the public Internet. But running private nodes creates a few gotchas:
+
+- **Configure Private Google Access.** By default, the Google Cloud API is queried over the public Internet, but private
+  Compute Instances have no access to the public Internet so how do they query the Google API? Fortunately, Google 
+  enables a Subnet property where you can [access Google APIs from within the network](
+  https://cloud.google.com/compute/docs/private-google-access/configure-private-google-access) and not over the public
+  Internet. **Setting this property is outside the scope of this module, but private Vault servers will not work unless
+  this is enabled, or they have public Internet access.**
+
+- **SSHing to private Compute Instances.** When a Compute Instance is private, you can only SSH into it from within the
+  network. This module does not give you any direct way to SSH to the private Compute Instances, so you must separately
+  setup a means to enter the network, for example, by setting up a public Bastion Host.
+
+- **Internet access for private Compute Instances.** If you do want your private Compute Instances to have Internet 
+  access, then Google recommends [setting up your own network proxy or NAT Gateway](
+  https://cloud.google.com/compute/docs/vpc/special-configurations#proxyvm).  
+  
 
 
 ## How do you connect to the Nomad cluster?
