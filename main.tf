@@ -56,7 +56,7 @@ module "nomad_and_consul_servers" {
 
 # Enable Firewall Rules to open up Nomad-specific ports
 module "nomad_firewall_rules" {
-  source = "modules/nomad-firewall-rules"
+  source = "./modules/nomad-firewall-rules"
 
   gcp_zone = "${var.gcp_zone}"
   cluster_name = "${var.nomad_consul_server_cluster_name}"
@@ -87,7 +87,7 @@ module "nomad_clients" {
   # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
   # to a specific version of the modules, such as the following example:
   # source = "git::git@github.com:hashicorp/terraform-google-nomad.git//modules/nomad-cluster?ref=v0.0.1"
-  source = "modules/nomad-cluster"
+  source = "./modules/nomad-cluster"
 
   gcp_zone = "${var.gcp_zone}"
 
