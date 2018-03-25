@@ -48,7 +48,7 @@ variable "nomad_consul_server_cluster_size" {
 }
 
 variable "nomad_consul_server_cluster_machine_type" {
-  description = "The machine type of the Compute Instance to run for each node in the Vault cluster (e.g. n1-standard-1)."
+  description = "The machine type of the Compute Instance to run for each node in the Nomad cluster (e.g. n1-standard-1)."
   default = "g1-small"
 }
 
