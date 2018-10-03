@@ -2,8 +2,7 @@
 # REQUIRED PARAMETERS
 # You must provide a value for each of these parameters.
 # ---------------------------------------------------------------------------------------------------------------------
-
-variable "gcp_zone" {
+variable "gcp_region" {
   description = "All GCP resources will be launched in this Zone."
 }
 

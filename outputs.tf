@@ -2,10 +2,6 @@ output "gcp_project" {
   value = "${var.gcp_project}"
 }
 
-output "gcp_zone" {
-  value = "${var.gcp_zone}"
-}
-
 output "nomad_server_cluster_size" {
   value = "${var.nomad_consul_server_cluster_size}"
 }

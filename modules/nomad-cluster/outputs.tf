@@ -7,11 +7,11 @@ output "cluster_tag_name" {
 }
 
 output "instance_group_id" {
-  value = "${google_compute_instance_group_manager.nomad.id}"
+  value = "${google_compute_region_instance_group_manager.nomad.id}"
 }
 
 output "instance_group_url" {
-  value = "${google_compute_instance_group_manager.nomad.self_link}"
+  value = "${google_compute_region_instance_group_manager.nomad.self_link}"
 }
 
 output "instance_template_url" {

@@ -29,9 +29,9 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "nomad_and_consul_servers" {
-  source = "git::https://github.com/hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.0.2"
+  source = "github.com/hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.2.0"
 
-  gcp_zone = "${var.gcp_zone}"
+  gcp_region = "${var.gcp_region}"
 
   cluster_name = "${var.nomad_consul_server_cluster_name}"
   cluster_size = "${var.nomad_consul_server_cluster_size}"
@@ -58,7 +58,6 @@ module "nomad_and_consul_servers" {
 module "nomad_firewall_rules" {
   source = "modules/nomad-firewall-rules"
 
-  gcp_zone = "${var.gcp_zone}"
   cluster_name = "${var.nomad_consul_server_cluster_name}"
   cluster_tag_name = "${var.nomad_consul_server_cluster_name}"
 
@@ -89,7 +88,7 @@ module "nomad_clients" {
   # source = "git::git@github.com:hashicorp/terraform-google-nomad.git//modules/nomad-cluster?ref=v0.0.1"
   source = "modules/nomad-cluster"
 
-  gcp_zone = "${var.gcp_zone}"
+  gcp_region = "${var.gcp_region}"
 
   cluster_name = "${var.nomad_client_cluster_name}"
   cluster_size = "${var.nomad_client_cluster_size}"

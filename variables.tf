@@ -11,10 +11,6 @@ variable "gcp_region" {
   description = "The region in which all GCP resources will be launched."
 }
 
-variable "gcp_zone" {
-  description = "The region in which all GCP resources will be launched."
-}
-
 # Nomad Server cluster
 
 variable "nomad_consul_server_cluster_name" {
