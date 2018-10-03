@@ -29,7 +29,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "nomad_and_consul_servers" {
-  source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.0.1"
+  source = "git::https://github.com/hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.0.2"
 
   gcp_zone = "${var.gcp_zone}"
 
