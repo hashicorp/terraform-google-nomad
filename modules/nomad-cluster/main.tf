@@ -1,11 +1,9 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# THESE TEMPLATES REQUIRE TERRAFORM VERSION 0.10.3 AND ABOVE
-# This way we can take advantage of Terraform GCP functionality as a separate provider via
-# https://github.com/terraform-providers/terraform-provider-google
+# 
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  required_version = ">= 0.10.3"
+  required_version = ">= 0.12"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -19,52 +17,60 @@ terraform {
 resource "google_compute_instance_group_manager" "nomad" {
   name = "${var.cluster_name}-ig"
 
-  base_instance_name = "${var.cluster_name}"
-  instance_template  = "${data.template_file.compute_instance_template_self_link.rendered}"
-  zone               = "${var.gcp_zone}"
+  base_instance_name = var.cluster_name
+  instance_template  = data.template_file.compute_instance_template_self_link.rendered
+  zone               = var.gcp_zone
 
   # Restarting all Nomad servers at the same time will result in data loss and down time. Therefore, the update strategy
   # used to roll out a new GCE Instance Template must be a rolling update. But since Terraform does not yet support
   # ROLLING_UPDATE, such updates must be manually rolled out for now.
-  update_strategy = "${var.instance_group_update_strategy}"
+  update_strategy = var.instance_group_update_strategy
 
-  target_pools = ["${var.instance_group_target_pools}"]
-  target_size  = "${var.cluster_size}"
+  target_pools = var.instance_group_target_pools
+  target_size  = var.cluster_size
 
-  depends_on = ["google_compute_instance_template.nomad_public", "google_compute_instance_template.nomad_private"]
+  depends_on = [
+    google_compute_instance_template.nomad_public,
+    google_compute_instance_template.nomad_private,
+  ]
 }
 
 # Create the Instance Template that will be used to populate the Managed Instance Group.
 # NOTE: This Compute Instance Template is only created if var.assign_public_ip_addresses is true.
 resource "google_compute_instance_template" "nomad_public" {
-  count = "${var.assign_public_ip_addresses}"
+  count = var.assign_public_ip_addresses
 
-  name_prefix = "${var.cluster_name}"
-  description = "${var.cluster_description}"
+  name_prefix = var.cluster_name
+  description = var.cluster_description
 
-  instance_description = "${var.cluster_description}"
-  machine_type         = "${var.machine_type}"
+  instance_description = var.cluster_description
+  machine_type         = var.machine_type
 
-  tags = "${concat(list(var.cluster_tag_name), var.custom_tags)}"
-  metadata_startup_script = "${var.startup_script}"
-  metadata = "${merge(map(var.metadata_key_name_for_cluster_size, var.cluster_size), var.custom_metadata)}"
+  tags                    = concat([var.cluster_tag_name], var.custom_tags)
+  metadata_startup_script = var.startup_script
+  metadata = merge(
+    {
+      var.metadata_key_name_for_cluster_size = var.cluster_size
+    },
+    var.custom_metadata,
+  )
 
   scheduling {
     automatic_restart   = true
     on_host_maintenance = "MIGRATE"
-    preemptible = false
+    preemptible         = false
   }
 
   disk {
     boot         = true
     auto_delete  = true
-    source_image = "${var.source_image}"
-    disk_size_gb = "${var.root_volume_disk_size_gb}"
-    disk_type    = "${var.root_volume_disk_type}"
+    source_image = var.source_image
+    disk_size_gb = var.root_volume_disk_size_gb
+    disk_type    = var.root_volume_disk_type
   }
 
   network_interface {
-    network = "${var.network_name}"
+    network = var.network_name
     access_config {
       # The presence of this property assigns a public IP address to each Compute Instance. We intentionally leave it
       # blank so that an external IP address is selected automatically.
@@ -91,32 +97,37 @@ resource "google_compute_instance_template" "nomad_public" {
 # Create the Instance Template that will be used to populate the Managed Instance Group.
 # NOTE: This Compute Instance Template is only created if var.assign_public_ip_addresses is false.
 resource "google_compute_instance_template" "nomad_private" {
-  count = "${1 - var.assign_public_ip_addresses}"
+  count = 1 - var.assign_public_ip_addresses
 
-  name_prefix = "${var.cluster_name}"
-  description = "${var.cluster_description}"
+  name_prefix = var.cluster_name
+  description = var.cluster_description
 
-  instance_description = "${var.cluster_description}"
-  machine_type = "${var.machine_type}"
+  instance_description = var.cluster_description
+  machine_type         = var.machine_type
 
-  tags = "${concat(list(var.cluster_tag_name), var.custom_tags)}"
-  metadata_startup_script = "${var.startup_script}"
-  metadata = "${merge(map(var.metadata_key_name_for_cluster_size, var.cluster_size), var.custom_metadata)}"
+  tags                    = concat([var.cluster_tag_name], var.custom_tags)
+  metadata_startup_script = var.startup_script
+  metadata = merge(
+    {
+      var.metadata_key_name_for_cluster_size = var.cluster_size
+    },
+    var.custom_metadata,
+  )
 
   scheduling {
     automatic_restart   = true
     on_host_maintenance = "MIGRATE"
-    preemptible = false
+    preemptible         = false
   }
 
   disk {
     boot         = true
     auto_delete  = true
-    source_image = "${var.source_image}"
+    source_image = var.source_image
   }
 
   network_interface {
-    network = "${var.network_name}"
+    network = var.network_name
   }
 
   # For a full list of oAuth 2.0 Scopes, see https://developers.google.com/identity/protocols/googlescopes
@@ -142,12 +153,12 @@ resource "google_compute_instance_template" "nomad_private" {
 module "firewall_rules" {
   source = "../nomad-firewall-rules"
 
-  gcp_zone = "${var.gcp_zone}"
-  cluster_name = "${var.cluster_name}"
-  cluster_tag_name = "${var.cluster_tag_name}"
+  gcp_zone         = var.gcp_zone
+  cluster_name     = var.cluster_name
+  cluster_tag_name = var.cluster_tag_name
 
   http_port = 4646
-  rpc_port = 4647
+  rpc_port  = 4647
   serf_port = 4648
 }
 
@@ -166,5 +177,11 @@ data "template_file" "compute_instance_template_self_link" {
   #   into a list of 1 resource and "no resource" into an empty list.
   # - Concat these lists. concat(list-of-1-value, empty-list) == list-of-1-value
   # - Take the first element of list-of-1-value
-  template = "${element(concat(google_compute_instance_template.nomad_public.*.self_link, google_compute_instance_template.nomad_private.*.self_link), 0)}"
+  template = element(
+    concat(
+      google_compute_instance_template.nomad_public.*.self_link,
+      google_compute_instance_template.nomad_private.*.self_link,
+    ),
+    0,
+  )
 }

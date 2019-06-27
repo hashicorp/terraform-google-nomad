@@ -44,22 +44,23 @@ variable "nomad_client_source_image" {
 
 variable "nomad_consul_server_cluster_size" {
   description = "The number of nodes to have in the Nomad Server cluster. We strongly recommended that you use either 3 or 5."
-  default = 3
+  default     = 3
 }
 
 variable "nomad_consul_server_cluster_machine_type" {
   description = "The machine type of the Compute Instance to run for each node in the Vault cluster (e.g. n1-standard-1)."
-  default = "g1-small"
+  default     = "g1-small"
 }
 
 # Nomad Client cluster
 
 variable "nomad_client_cluster_size" {
   description = "The number of nodes to have in the Nomad client cluster. This number is arbitrary."
-  default = 3
+  default     = 3
 }
 
 variable "nomad_client_machine_type" {
   description = "The machine type of the Compute Instance to run for each node in the Nomad client cluster (e.g. n1-standard-1)."
-  default = "g1-small"
+  default     = "g1-small"
 }
+

@@ -22,58 +22,59 @@ variable "cluster_tag_name" {
 
 variable "network_name" {
   description = "The name of the VPC Network where all resources should be created."
-  default = "default"
+  default     = "default"
 }
 
 # Firewall Ports
 
 variable "http_port" {
   description = "The port used by Nomad to handle incoming HTPT (API) requests."
-  default = 4646
+  default     = 4646
 }
 
 variable "rpc_port" {
   description = "The port used by Nomad to handle incoming RPC requests."
-  default = 4647
+  default     = 4647
 }
 
 variable "serf_port" {
   description = "The port used by Nomad to handle incoming serf requests."
-  default = 4648
+  default     = 4648
 }
 
 variable "allowed_inbound_cidr_blocks_http" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.http_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_http" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.http_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_cidr_blocks_rpc" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.rpc_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_rpc" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.rpc_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_cidr_blocks_serf" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.serf_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_serf" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.serf_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
+

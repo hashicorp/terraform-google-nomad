@@ -38,110 +38,111 @@ variable "startup_script" {
 
 variable "instance_group_target_pools" {
   description = "To use a Load Balancer with the Consul cluster, you must populate this value. Specifically, this is the list of Target Pool URLs to which new Compute Instances in the Instance Group created by this module will be added. Note that updating the Target Pools attribute does not affect existing Compute Instances."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "cluster_description" {
   description = "A description of the Vault cluster; it will be added to the Compute Instance Template."
-  default = ""
+  default     = ""
 }
 
 variable "assign_public_ip_addresses" {
   description = "If true, each of the Compute Instances will receive a public IP address and be reachable from the Public Internet (if Firewall rules permit). If false, the Compute Instances will have private IP addresses only. In production, this should be set to false."
-  default = false
+  default     = false
 }
 
 variable "network_name" {
   description = "The name of the VPC Network where all resources should be created."
-  default = "default"
+  default     = "default"
 }
 
 variable "custom_tags" {
   description = "A list of tags that will be added to the Compute Instance Template in addition to the tags automatically added by this module."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "instance_group_update_strategy" {
   description = "The update strategy to be used by the Instance Group. IMPORTANT! When you update almost any cluster setting, under the hood, this module creates a new Instance Group Template. Once that Instance Group Template is created, the value of this variable determines how the new Template will be rolled out across the Instance Group. Unfortunately, as of August 2017, Google only supports the options 'RESTART' (instantly restart all Compute Instances and launch new ones from the new Template) or 'NONE' (do nothing; updates should be handled manually). Google does offer a rolling updates feature that perfectly meets our needs, but this is in Alpha (https://goo.gl/MC3mfc). Therefore, until this module supports a built-in rolling update strategy, we recommend using `NONE` and either using the alpha rolling updates strategy to roll out new Vault versions, or to script this using GCE API calls. If using the alpha feature, be sure you are comfortable with the level of risk you are taking on. For additional detail, see https://goo.gl/hGH6dd."
-  default = "NONE"
+  default     = "NONE"
 }
 
 # Metadata
 
 variable "metadata_key_name_for_cluster_size" {
   description = "The key name to be used for the custom metadata attribute that represents the size of the Nomad cluster."
-  default = "cluster-size"
+  default     = "cluster-size"
 }
 
 variable "custom_metadata" {
   description = "A map of metadata key value pairs to assign to the Compute Instance metadata."
-  type = "map"
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 # Firewall Ports
 
 variable "http_port" {
   description = "The port used by Nomad to handle incoming HTPT (API) requests."
-  default = 4646
+  default     = 4646
 }
 
 variable "rpc_port" {
   description = "The port used by Nomad to handle incoming RPC requests."
-  default = 4647
+  default     = 4647
 }
 
 variable "serf_port" {
   description = "The port used by Nomad to handle incoming serf requests."
-  default = 4648
+  default     = 4648
 }
 
 variable "allowed_inbound_cidr_blocks_http" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.http_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_http" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.http_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_cidr_blocks_rpc" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.rpc_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_rpc" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.rpc_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_cidr_blocks_serf" {
   description = "A list of CIDR-formatted IP address ranges from which the Compute Instances will allow connections to Nomad on the port specified by var.serf_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "allowed_inbound_tags_serf" {
   description = "A list of tags from which the Compute Instances will allow connections to Nomad on the port specified by var.serf_port."
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 # Disk Settings
 
 variable "root_volume_disk_size_gb" {
   description = "The size, in GB, of the root disk volume on each Consul node."
-  default = 30
+  default     = 30
 }
 
 variable "root_volume_disk_type" {
   description = "The GCE disk type. Can be either pd-ssd, local-ssd, or pd-standard"
-  default = "pd-standard"
+  default     = "pd-standard"
 }
+
