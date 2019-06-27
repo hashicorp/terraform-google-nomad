@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"testing"
 	"time"
 
@@ -25,11 +26,17 @@ const (
 	TFVAR_NAME_GCP_REGION     = "gcp_region"
 	TFVAR_NAME_GCP_ZONE       = "gcp_zone"
 
-	TFVAR_NAME_CONSUL_CLUSTER_NAME = "nomad_consul_server_cluster_name"
-	TFVAR_NAME_CONSUL_SOURCE_IMAGE = "nomad_consul_server_source_image"
+	TFVAR_NAME_NOMAD_CONSUL_SERVER_CLUSTER_NAME = "nomad_consul_server_cluster_name"
+	TFVAR_NAME_NOMAD_CONSUL_SERVER_SOURCE_IMAGE = "nomad_consul_server_source_image"
 
-	TFVAR_NAME_NOMAD_CLUSTER_NAME = "nomad_client_cluster_name"
-	TFVAR_NAME_NOMAD_SOURCE_IMAGE = "nomad_client_source_image"
+	TFVAR_NAME_NOMAD_CLIENT_CLUSTER_NAME = "nomad_client_cluster_name"
+	TFVAR_NAME_NOMAD_CLIENT_SOURCE_IMAGE = "nomad_client_source_image"
+
+	TFVAR_NAME_NOMAD_SERVER_CLUSTER_NAME = "nomad_server_cluster_name"
+	TFVAR_NAME_NOMAD_SERVER_SOURCE_IMAGE = "nomad_server_source_image"
+
+	TFVAR_NAME_CONSUL_SERVER_CLUSTER_NAME = "consul_server_cluster_name"
+	TFVAR_NAME_CONSUL_SERVER_SOURCE_IMAGE = "consul_server_source_image"
 )
 
 type testCase struct {

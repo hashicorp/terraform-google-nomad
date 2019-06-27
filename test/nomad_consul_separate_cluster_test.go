@@ -11,8 +11,8 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func runNomadCluster(t *testing.T) {
-	exampleDir := test_structure.CopyTerraformFolderToTemp(t, "../", ".")
+func runNomadConsulSeparateCluster(t *testing.T) {
+	exampleDir := test_structure.CopyTerraformFolderToTemp(t, "../", "./examples/nomad-consul-separate-cluster")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleDir)
@@ -31,13 +31,15 @@ func runNomadCluster(t *testing.T) {
 		terraformOptions := &terraform.Options{
 			TerraformDir: exampleDir,
 			Vars: map[string]interface{}{
-				TFVAR_NAME_GCP_PROJECT_ID:                   projectID,
-				TFVAR_NAME_GCP_REGION:                       region,
-				TFVAR_NAME_GCP_ZONE:                         zone,
-				TFVAR_NAME_NOMAD_CONSUL_SERVER_CLUSTER_NAME: fmt.Sprintf("consul-nomad-server-%s", uniqueID),
-				TFVAR_NAME_NOMAD_CONSUL_SERVER_SOURCE_IMAGE: imageID,
-				TFVAR_NAME_NOMAD_CLIENT_CLUSTER_NAME:        fmt.Sprintf("nomad-client-%s", uniqueID),
-				TFVAR_NAME_NOMAD_CLIENT_SOURCE_IMAGE:        imageID,
+				TFVAR_NAME_GCP_PROJECT_ID:             projectID,
+				TFVAR_NAME_GCP_REGION:                 region,
+				TFVAR_NAME_GCP_ZONE:                   zone,
+				TFVAR_NAME_CONSUL_SERVER_CLUSTER_NAME: fmt.Sprintf("consul-server-%s", uniqueID),
+				TFVAR_NAME_CONSUL_SERVER_SOURCE_IMAGE: imageID,
+				TFVAR_NAME_NOMAD_SERVER_CLUSTER_NAME:  fmt.Sprintf("nomad-server-%s", uniqueID),
+				TFVAR_NAME_NOMAD_SERVER_SOURCE_IMAGE:  imageID,
+				TFVAR_NAME_NOMAD_CLIENT_CLUSTER_NAME:  fmt.Sprintf("nomad-client-%s", uniqueID),
+				TFVAR_NAME_NOMAD_CLIENT_SOURCE_IMAGE:  imageID,
 			},
 		}
 
