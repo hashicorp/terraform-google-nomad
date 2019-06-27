@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/gruntwork-io/terratest/modules/gcp"
-	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/packer"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
@@ -20,6 +19,17 @@ const (
 	SAVED_GCP_PROJECT_ID  = "GcpProjectId"
 	SAVED_GCP_REGION_NAME = "GcpRegionName"
 	SAVED_GCP_ZONE_NAME   = "GcpZoneName"
+
+	// Terraform module vars
+	TFVAR_NAME_GCP_PROJECT_ID = "gcp_project"
+	TFVAR_NAME_GCP_REGION     = "gcp_region"
+	TFVAR_NAME_GCP_ZONE       = "gcp_zone"
+
+	TFVAR_NAME_CONSUL_CLUSTER_NAME = "nomad_consul_server_cluster_name"
+	TFVAR_NAME_CONSUL_SOURCE_IMAGE = "nomad_consul_server_source_image"
+
+	TFVAR_NAME_NOMAD_CLUSTER_NAME = "nomad_client_cluster_name"
+	TFVAR_NAME_NOMAD_SOURCE_IMAGE = "nomad_client_source_image"
 )
 
 type testCase struct {
@@ -34,13 +44,13 @@ var testCases = []testCase{
 	},
 }
 
-// For convenience - uncomment these as well as the "os" import
-// when doing local testing if you need to skip any sections.
-// when doing local testing if you need to skip any sections.
-// os.Setenv("SKIP_build_image", "true")
-// os.Setenv("SKIP_delete_image", "true")
-// os.Setenv("SKIP_", "true")
 func TestMainNomadCluster(t *testing.T) {
+	// For convenience - uncomment these as well as the "os" import
+	// when doing local testing if you need to skip any sections.
+	// when doing local testing if you need to skip any sections.
+	// os.Setenv("SKIP_build_image", "true")
+	// os.Setenv("SKIP_delete_image", "true")
+	// os.Setenv("SKIP_", "true")
 	t.Parallel()
 
 	test_structure.RunTestStage(t, "build_image", func() {
@@ -74,10 +84,6 @@ func TestMainNomadCluster(t *testing.T) {
 	t.Run("group", func(t *testing.T) {
 		runAllTests(t)
 	})
-}
-
-func runNomadCluster(t *testing.T) {
-	logger.Logf(t, "TODO")
 }
 
 func runAllTests(t *testing.T) {
