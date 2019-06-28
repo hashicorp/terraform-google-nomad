@@ -3,11 +3,6 @@
 # You must provide a value for each of these parameters.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "gcp_zone" {
-  description = "All GCP resources will be launched in this Zone."
-  type        = string
-}
-
 variable "cluster_name" {
   description = "The name of the Nomad cluster (e.g. nomad-stage). This variable is used to namespace all resources created by this module."
   type        = string

@@ -7,11 +7,15 @@ output "cluster_tag_name" {
 }
 
 output "instance_group_id" {
-  value = google_compute_instance_group_manager.nomad.id
+  value = google_compute_region_instance_group_manager.nomad.id
 }
 
 output "instance_group_url" {
-  value = google_compute_instance_group_manager.nomad.self_link
+  value = google_compute_region_instance_group_manager.nomad.self_link
+}
+
+output "instance_group_name" {
+  value = google_compute_region_instance_group_manager.nomad.name
 }
 
 output "instance_template_url" {
@@ -41,4 +45,3 @@ output "firewall_rule_allow_inbound_serf_url" {
 output "firewall_rule_allow_inbound_serf_id" {
   value = module.firewall_rules.firewall_rule_allow_inbound_serf_id
 }
-

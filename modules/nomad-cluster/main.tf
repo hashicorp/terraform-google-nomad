@@ -9,18 +9,15 @@ terraform {
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE A GCE MANAGED INSTANCE GROUP TO RUN NOMAD
-# Ideally, we would run a "regional" Managed Instance Group that spans many Zones, but the Terraform GCP provider has
-# not yet implemented https://github.com/terraform-providers/terraform-provider-google/issues/45, so we settle for a
-# single-zone Managed Instance Group.
 # ---------------------------------------------------------------------------------------------------------------------
 
-# Create the single-zone Managed Instance Group where Nomad will run.
-resource "google_compute_instance_group_manager" "nomad" {
+# Create the Managed Instance Group where Nomad will run.
+resource "google_compute_region_instance_group_manager" "nomad" {
   name = "${var.cluster_name}-ig"
 
   base_instance_name = var.cluster_name
   instance_template  = data.template_file.compute_instance_template_self_link.rendered
-  zone               = var.gcp_zone
+  region               = var.gcp_region
 
   # Restarting all Nomad servers at the same time will result in data loss and down time. Therefore, the update strategy
   # used to roll out a new GCE Instance Template must be a rolling update. But since Terraform does not yet support
@@ -154,7 +151,6 @@ resource "google_compute_instance_template" "nomad_private" {
 module "firewall_rules" {
   source = "../nomad-firewall-rules"
 
-  gcp_zone         = var.gcp_zone
   cluster_name     = var.cluster_name
   cluster_tag_name = var.cluster_tag_name
 
