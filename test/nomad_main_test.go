@@ -3,7 +3,7 @@ package test
 import (
 	"fmt"
 	"math/rand"
-	"os"
+	// "os"
 	"testing"
 	"time"
 
@@ -46,14 +46,17 @@ type testCase struct {
 
 var testCases = []testCase{
 	{
-		"TestNomadCluster",
+		"TestDeployNomadCluster",
 		runNomadCluster,
+	},
+	{
+		"TestDeployNomadConsulSeparateCluster",
+		runNomadConsulSeparateCluster,
 	},
 }
 
 func TestMainNomadCluster(t *testing.T) {
 	// For convenience - uncomment these as well as the "os" import
-	// when doing local testing if you need to skip any sections.
 	// when doing local testing if you need to skip any sections.
 	// os.Setenv("SKIP_build_image", "true")
 	// os.Setenv("SKIP_delete_image", "true")
@@ -62,6 +65,7 @@ func TestMainNomadCluster(t *testing.T) {
 
 	test_structure.RunTestStage(t, "build_image", func() {
 		projectID := gcp.GetGoogleProjectIDFromEnvVar(t)
+		// Limiting tests to us-east1 due to quota of IP addresses in use
 		region := gcp.GetRandomRegion(t, projectID, []string{"us-east1"}, nil)
 		zone := gcp.GetRandomZoneForRegion(t, projectID, region)
 
