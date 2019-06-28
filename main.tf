@@ -31,7 +31,8 @@ terraform {
 module "nomad_and_consul_servers" {
   source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.4.0"
 
-  gcp_zone = var.gcp_zone
+  gcp_project_id = var.gcp_project
+  gcp_region = var.gcp_region
 
   cluster_name     = var.nomad_consul_server_cluster_name
   cluster_size     = var.nomad_consul_server_cluster_size

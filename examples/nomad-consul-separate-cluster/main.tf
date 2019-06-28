@@ -74,7 +74,9 @@ data "template_file" "startup_script_nomad_server" {
 module "consul_cluster" {
   source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.4.0"
 
-  gcp_zone         = var.gcp_zone
+  gcp_project_id = var.gcp_project
+  gcp_region = var.gcp_region
+  
   cluster_name     = var.consul_server_cluster_name
   cluster_tag_name = var.consul_server_cluster_name
   cluster_size     = var.consul_server_cluster_size
