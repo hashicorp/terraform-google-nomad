@@ -5,13 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func runNomadCluster(t *testing.T) {
+func runNomadColocatedCluster(t *testing.T) {
 	exampleDir := test_structure.CopyTerraformFolderToTemp(t, "../", ".")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
@@ -46,6 +45,10 @@ func runNomadCluster(t *testing.T) {
 	})
 
 	test_structure.RunTestStage(t, "validate", func() {
-		logger.Logf(t, "TODO: validate nomad cluster")
+		terraformOptions := test_structure.LoadTerraformOptions(t, exampleDir)
+		instanceGroupName := terraform.OutputRequired(t, terraformOptions, TFOUT_COLOCATED_SERVER_INSTANCE_GROUP_NAME)
+
+		ip := getClusterNodeIP(t, instanceGroupName)
+		testNomadCluster(t, ip)
 	})
 }

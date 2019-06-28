@@ -423,6 +423,7 @@
   revision = "9d24e82272b4f38b78bc8cff74fa936d31ccd8ef"
 
 [[projects]]
+  branch = "master"
   name = "google.golang.org/api"
   packages = [
     "compute/v1",
@@ -438,8 +439,7 @@
     "transport/http",
     "transport/http/internal/propagation"
   ]
-  revision = "02490b97dff7cfde1995bd77de808fd27053bc87"
-  version = "v0.7.0"
+  revision = "59282b25774dc175f05010d66f2200bbe4a9b923"
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -680,6 +680,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "95bef562c3d15a2fe581c305d6ada42ce06c725d9f4802db1a2c1d787a3295d6"
+  inputs-digest = "be57f105fe52e58bc32942d04ba87a43ff3b124e2aba33f1aa578b4302e9c732"
   solver-name = "gps-cdcl"
   solver-version = 1

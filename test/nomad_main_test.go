@@ -37,6 +37,9 @@ const (
 
 	TFVAR_NAME_CONSUL_SERVER_CLUSTER_NAME = "consul_server_cluster_name"
 	TFVAR_NAME_CONSUL_SERVER_SOURCE_IMAGE = "consul_server_source_image"
+
+	TFOUT_COLOCATED_SERVER_INSTANCE_GROUP_NAME = "nomad_server_instance_group_name"
+	TFOUT_SEPARATE_SERVER_INSTANCE_GROUP_NAME  = "nomad_server_instance_group_name"
 )
 
 type testCase struct {
