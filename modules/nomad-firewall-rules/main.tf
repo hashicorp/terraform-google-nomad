@@ -1,7 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# THESE TEMPLATES REQUIRE TERRAFORM VERSION 0.10.3 AND ABOVE
-# This way we can take advantage of Terraform GCP functionality as a separate provider via
-# https://github.com/terraform-providers/terraform-provider-google
+# This module has been updated with 0.12 syntax, which means the example is no longer
+# compatible with any versions below 0.12.
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {

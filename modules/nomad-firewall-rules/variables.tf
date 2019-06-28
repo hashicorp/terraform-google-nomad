@@ -5,14 +5,17 @@
 
 variable "gcp_zone" {
   description = "All GCP resources will be launched in this Zone."
+  type        = string
 }
 
 variable "cluster_name" {
   description = "The name of the Nomad cluster (e.g. nomad-stage). This variable is used to namespace all resources created by this module."
+  type        = string
 }
 
 variable "cluster_tag_name" {
   description = "The tag name the Compute Instances will look for to automatically discover each other and form a cluster. TIP: If running more than one Nomad cluster, each cluster should have its own unique tag name."
+  type        = string
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -22,6 +25,7 @@ variable "cluster_tag_name" {
 
 variable "network_name" {
   description = "The name of the VPC Network where all resources should be created."
+  type        = string
   default     = "default"
 }
 
@@ -29,16 +33,19 @@ variable "network_name" {
 
 variable "http_port" {
   description = "The port used by Nomad to handle incoming HTPT (API) requests."
+  type        = number
   default     = 4646
 }
 
 variable "rpc_port" {
   description = "The port used by Nomad to handle incoming RPC requests."
+  type        = number
   default     = 4647
 }
 
 variable "serf_port" {
   description = "The port used by Nomad to handle incoming serf requests."
+  type        = number
   default     = 4648
 }
 
@@ -77,4 +84,3 @@ variable "allowed_inbound_tags_serf" {
   type        = list(string)
   default     = []
 }
-

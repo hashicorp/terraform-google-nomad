@@ -1,5 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# 
+# This module has been updated with 0.12 syntax, which means the example is no longer
+# compatible with any versions below 0.12.
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
@@ -38,7 +39,7 @@ resource "google_compute_instance_group_manager" "nomad" {
 # Create the Instance Template that will be used to populate the Managed Instance Group.
 # NOTE: This Compute Instance Template is only created if var.assign_public_ip_addresses is true.
 resource "google_compute_instance_template" "nomad_public" {
-  count = var.assign_public_ip_addresses
+  count = var.assign_public_ip_addresses ? 1 : 0
 
   name_prefix = var.cluster_name
   description = var.cluster_description
@@ -50,7 +51,7 @@ resource "google_compute_instance_template" "nomad_public" {
   metadata_startup_script = var.startup_script
   metadata = merge(
     {
-      var.metadata_key_name_for_cluster_size = var.cluster_size
+      "${var.metadata_key_name_for_cluster_size}" = var.cluster_size
     },
     var.custom_metadata,
   )
@@ -97,7 +98,7 @@ resource "google_compute_instance_template" "nomad_public" {
 # Create the Instance Template that will be used to populate the Managed Instance Group.
 # NOTE: This Compute Instance Template is only created if var.assign_public_ip_addresses is false.
 resource "google_compute_instance_template" "nomad_private" {
-  count = 1 - var.assign_public_ip_addresses
+  count = var.assign_public_ip_addresses ? 0 : 1
 
   name_prefix = var.cluster_name
   description = var.cluster_description
@@ -109,7 +110,7 @@ resource "google_compute_instance_template" "nomad_private" {
   metadata_startup_script = var.startup_script
   metadata = merge(
     {
-      var.metadata_key_name_for_cluster_size = var.cluster_size
+      "${var.metadata_key_name_for_cluster_size}" = var.cluster_size
     },
     var.custom_metadata,
   )
