@@ -153,6 +153,7 @@ module "firewall_rules" {
 
   cluster_name     = var.cluster_name
   cluster_tag_name = var.cluster_tag_name
+  allowed_inbound_cidr_blocks_http = var.allowed_inbound_cidr_blocks_http
 
   http_port = 4646
   rpc_port  = 4647
