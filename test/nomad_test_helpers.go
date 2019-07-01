@@ -14,11 +14,6 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-const (
-	DEFAULT_NUM_CLIENTS = 3
-	DEFAULT_NUM_SERVERS = 3
-)
-
 // Fetches the IP of one random node in the API
 func getClusterNodeIP(t *testing.T, instanceGroupName string) string {
 	projectID := test_structure.LoadString(t, WORK_DIR, SAVED_GCP_PROJECT_ID)

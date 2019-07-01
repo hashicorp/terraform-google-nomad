@@ -13,8 +13,10 @@ import (
 )
 
 const (
-	IMAGE_EXAMPLE_PATH = "../examples/nomad-consul-image/nomad-consul.json"
-	WORK_DIR           = "./"
+	IMAGE_EXAMPLE_PATH  = "../examples/nomad-consul-image/nomad-consul.json"
+	WORK_DIR            = "./"
+	DEFAULT_NUM_CLIENTS = 3
+	DEFAULT_NUM_SERVERS = 3
 
 	// Terratest saved value names
 	SAVED_GCP_PROJECT_ID  = "GcpProjectId"
@@ -38,6 +40,10 @@ const (
 	TFVAR_NAME_CONSUL_SERVER_CLUSTER_NAME = "consul_server_cluster_name"
 	TFVAR_NAME_CONSUL_SERVER_SOURCE_IMAGE = "consul_server_source_image"
 
+	TFVAR_NAME_NOMAD_CONSUL_SERVER_CLUSTER_SIZE = "nomad_consul_server_cluster_size"
+	TFVAR_NAME_NOMAD_SERVER_CLUSTER_SIZE        = "nomad_client_cluster_size"
+	TFVAR_NAME_NOMAD_CLIENT_CLUSTER_SIZE        = "nomad_server_cluster_size"
+
 	TFOUT_COLOCATED_SERVER_INSTANCE_GROUP_NAME = "nomad_server_instance_group_name"
 	TFOUT_SEPARATE_SERVER_INSTANCE_GROUP_NAME  = "nomad_server_instance_group_name"
 )
@@ -49,8 +55,8 @@ type testCase struct {
 
 var testCases = []testCase{
 	{
-		"TestDeployNomadCluster",
-		runNomadCluster,
+		"TestNomadColocatedCluster",
+		runNomadColocatedCluster,
 	},
 	{
 		"TestDeployNomadConsulSeparateCluster",
