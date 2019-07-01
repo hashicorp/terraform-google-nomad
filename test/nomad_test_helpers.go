@@ -19,7 +19,7 @@ func getClusterNodeIP(t *testing.T, instanceGroupName string) string {
 	projectID := test_structure.LoadString(t, WORK_DIR, SAVED_GCP_PROJECT_ID)
 	region := test_structure.LoadString(t, WORK_DIR, SAVED_GCP_REGION_NAME)
 
-	maxRetries := 3
+	maxRetries := 10
 	sleepBetweenRetries := 10 * time.Second
 
 	ip := retry.DoWithRetry(t, fmt.Sprintf("Waiting for instances in group"), maxRetries, sleepBetweenRetries, func() (string, error) {
@@ -48,7 +48,7 @@ func getClusterNodeIP(t *testing.T, instanceGroupName string) string {
 // 2. The cluster has the expected number of server nodes
 // 2. The cluster has the expected number of client nodes
 func testNomadCluster(t *testing.T, nodeIPAddress string) {
-	maxRetries := 10
+	maxRetries := 20
 	sleepBetweenRetries := 5 * time.Second
 
 	response := retry.DoWithRetry(t, "Check Nomad cluster has expected number of servers and clients", maxRetries, sleepBetweenRetries, func() (string, error) {
