@@ -1,11 +1,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# THESE TEMPLATES REQUIRE TERRAFORM VERSION 0.10.3 AND ABOVE
-# This way we can take advantage of Terraform GCP functionality as a separate provider via
-# https://github.com/terraform-providers/terraform-provider-google
+# This module has been updated with 0.12 syntax, which means the example is no longer
+# compatible with any versions below 0.12.
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  required_version = ">= 0.10.3"
+  required_version = ">= 0.12"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -18,64 +17,64 @@ terraform {
 
 # Specify which traffic is allowed into the Nomad cluster for inbound HTTP requests
 resource "google_compute_firewall" "allow_inbound_http" {
-  count = "${length(var.allowed_inbound_cidr_blocks_http) + length(var.allowed_inbound_tags_http) > 0 ? 1 : 0}"
+  count = length(var.allowed_inbound_cidr_blocks_http) + length(var.allowed_inbound_tags_http) > 0 ? 1 : 0
 
   name    = "${var.cluster_name}-rule-external-http-access"
-  network = "${var.network_name}"
+  network = var.network_name
 
   allow {
     protocol = "tcp"
-    ports    = [
-      "${var.http_port}",
+    ports = [
+      var.http_port,
     ]
   }
 
-  source_ranges = "${var.allowed_inbound_cidr_blocks_http}"
-  source_tags = "${var.allowed_inbound_tags_http}"
-  target_tags = ["${var.cluster_tag_name}"]
+  source_ranges = var.allowed_inbound_cidr_blocks_http
+  source_tags   = var.allowed_inbound_tags_http
+  target_tags   = [var.cluster_tag_name]
 }
 
 # Specify which traffic is allowed into the Nomad cluster for inbound RPC requests
 resource "google_compute_firewall" "allow_inbound_rpc" {
-  count = "${length(var.allowed_inbound_cidr_blocks_rpc) + length(var.allowed_inbound_tags_rpc) > 0 ? 1 : 0}"
+  count = length(var.allowed_inbound_cidr_blocks_rpc) + length(var.allowed_inbound_tags_rpc) > 0 ? 1 : 0
 
   name    = "${var.cluster_name}-rule-external-rpc-access"
-  network = "${var.network_name}"
+  network = var.network_name
 
   allow {
     protocol = "tcp"
-    ports    = [
-      "${var.rpc_port}",
+    ports = [
+      var.rpc_port,
     ]
   }
 
-  source_ranges = "${var.allowed_inbound_cidr_blocks_rpc}"
-  source_tags = "${var.allowed_inbound_tags_rpc}"
-  target_tags = ["${var.cluster_tag_name}"]
+  source_ranges = var.allowed_inbound_cidr_blocks_rpc
+  source_tags   = var.allowed_inbound_tags_rpc
+  target_tags   = [var.cluster_tag_name]
 }
 
 # Specify which traffic is allowed into the Nomad cluster for inbound serf requests
 resource "google_compute_firewall" "allow_inbound_serf" {
-  count = "${length(var.allowed_inbound_cidr_blocks_serf) + length(var.allowed_inbound_tags_serf) > 0 ? 1 : 0}"
+  count = length(var.allowed_inbound_cidr_blocks_serf) + length(var.allowed_inbound_tags_serf) > 0 ? 1 : 0
 
   name    = "${var.cluster_name}-rule-external-serf-access"
-  network = "${var.network_name}"
+  network = var.network_name
 
   allow {
     protocol = "tcp"
-    ports    = [
-      "${var.serf_port}",
+    ports = [
+      var.serf_port,
     ]
   }
 
   allow {
     protocol = "udp"
-    ports    = [
-      "${var.serf_port}",
+    ports = [
+      var.serf_port,
     ]
   }
 
-  source_ranges = "${var.allowed_inbound_cidr_blocks_serf}"
-  source_tags = "${var.allowed_inbound_tags_serf}"
-  target_tags = ["${var.cluster_tag_name}"]
+  source_ranges = var.allowed_inbound_cidr_blocks_serf
+  source_tags   = var.allowed_inbound_tags_serf
+  target_tags   = [var.cluster_tag_name]
 }
