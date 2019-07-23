@@ -10,7 +10,7 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func runNomadConsulSeparateCluster(t *testing.T) {
+func runNomadConsulSeparateCluster(t *testing.T, packerBuildName string) {
 	exampleDir := test_structure.CopyTerraformFolderToTemp(t, "../", "./examples/nomad-consul-separate-cluster")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
@@ -21,7 +21,7 @@ func runNomadConsulSeparateCluster(t *testing.T) {
 	test_structure.RunTestStage(t, "deploy", func() {
 		projectID := test_structure.LoadString(t, WORK_DIR, SAVED_GCP_PROJECT_ID)
 		region := test_structure.LoadString(t, WORK_DIR, SAVED_GCP_REGION_NAME)
-		imageID := test_structure.LoadArtifactID(t, WORK_DIR)
+		imageID := test_structure.LoadString(t, WORK_DIR, fmt.Sprintf("%s-id", packerBuildName))
 
 		// GCP only supports lowercase names for some resources
 		uniqueID := strings.ToLower(random.UniqueId())
