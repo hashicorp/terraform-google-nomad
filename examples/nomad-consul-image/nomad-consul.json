@@ -8,11 +8,21 @@
     "consul_version": "1.5.1"
   },
   "builders": [{
+    "name": "ubuntu16-image",
     "type": "googlecompute",
-    "image_name": "nomad-consul-{{isotime \"2006-01-02-030405\"}}",
+    "image_name": "nomad-consul-ubuntu16-{{isotime \"2006-01-02-030405\"}}",
     "image_family": "nomad-consul",
     "project_id": "{{user `project_id`}}",
     "source_image_family": "ubuntu-1604-lts",
+    "zone": "{{user `zone`}}",
+    "ssh_username": "ubuntu"
+  },{
+    "name": "ubuntu18-image",
+    "type": "googlecompute",
+    "image_name": "nomad-consul-ubuntu18-{{isotime \"2006-01-02-030405\"}}",
+    "image_family": "nomad-consul",
+    "project_id": "{{user `project_id`}}",
+    "source_image_family": "ubuntu-1804-lts",
     "zone": "{{user `zone`}}",
     "ssh_username": "ubuntu"
   }],
