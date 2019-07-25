@@ -9,6 +9,7 @@ https://github.com/hashicorp/terraform-google-nomad/tree/master/modules/nomad-cl
 This script has been tested on the following operating systems:
 
 * Ubuntu 16.04
+* Ubuntu 18.04
 
 There is a good chance it will work on other flavors of Debian as well.
 
@@ -18,7 +19,7 @@ There is a good chance it will work on other flavors of Debian as well.
 
 <!-- TODO: update the clone URL to the final URL when this Module is released -->
 
-To install Nomad, use `git` to clone this repository at a specific tag (see the [releases page](../../../../releases) 
+To install Nomad, use `git` to clone this repository at a specific tag (see the [releases page](../../../../releases)
 for all available tags) and run the `install-nomad` script:
 
 ```
@@ -34,7 +35,7 @@ We recommend running the `install-nomad` script as part of a [Packer](https://ww
 Nomad [Google Image](https://cloud.google.com/compute/docs/images) (see the [nomad-consul-image example](
 https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-ami) for sample code). You can then
 deploy the Image across a Managed Instance Group using the [nomad-cluster module](
-https://github.com/hashicorp/terraform-google-nomad/tree/master/modules/nomad-cluster) (see the 
+https://github.com/hashicorp/terraform-google-nomad/tree/master/modules/nomad-cluster) (see the
 [nomad-consul-colocated-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/root-example/README.md)
 and [nomad-consul-separate-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-separate-cluster)
 examples for fully-working sample code).
@@ -46,7 +47,7 @@ examples for fully-working sample code).
 
 The `install-nomad` script accepts the following arguments:
 
-* `version VERSION`: Install Nomad version VERSION. Required. 
+* `version VERSION`: Install Nomad version VERSION. Required.
 * `path DIR`: Install Nomad into folder DIR. Optional.
 * `user USER`: The install dirs will be owned by user USER. Optional.
 
@@ -83,10 +84,10 @@ Create an OS user named `nomad`. Create the following folders, all owned by user
 
 Install the following:
 
-* `nomad`: Download the Nomad zip file from the [downloads page](https://www.nomadproject.io/downloads.html) (the 
-  version number is configurable via the `--version` argument), and extract the `nomad` binary into 
+* `nomad`: Download the Nomad zip file from the [downloads page](https://www.nomadproject.io/downloads.html) (the
+  version number is configurable via the `--version` argument), and extract the `nomad` binary into
   `/opt/nomad/bin`. Add a symlink to the `nomad` binary in `/usr/local/bin`.
-* `run-nomad`: Copy the [run-nomad script](https://github.com/hashicorp/terraform-aws-nomad/tree/master/modules/run-nomad) into `/opt/nomad/bin`. 
+* `run-nomad`: Copy the [run-nomad script](https://github.com/hashicorp/terraform-aws-nomad/tree/master/modules/run-nomad) into `/opt/nomad/bin`.
 
 
 ### Install supervisord
@@ -103,14 +104,14 @@ After the `install-nomad` script finishes running, you may wish to do the follow
    `/opt/nomad/config`).
 1. If `/usr/local/bin` isn't already part of `PATH`, you should add it so you can run the `nomad` command without
    specifying the full path.
-   
+
 
 
 ## Why use Git to install this code?
 
 <!-- TODO: update the package managers URL to the final URL when this Module is released -->
 
-We needed an easy way to install these scripts that satisfied a number of requirements, including working on a variety 
+We needed an easy way to install these scripts that satisfied a number of requirements, including working on a variety
 of operating systems and supported versioning. Our current solution is to use `git`, but this may change in the future.
-See [Package Managers](https://github.com/hashicorp/terraform-google-consul/blob/master/_docs/package-managers.md) for 
+See [Package Managers](https://github.com/hashicorp/terraform-google-consul/blob/master/_docs/package-managers.md) for
 a full discussion of the requirements, trade-offs, and why we picked `git`.
