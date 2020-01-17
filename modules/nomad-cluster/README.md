@@ -59,9 +59,10 @@ Note the following parameters:
 
 You can find the other parameters in [variables.tf](variables.tf).
 
-Check out the [nomad-consul-separate-cluster](/examples/nomad-consul-separate-cluster/README.md) example for working
+Check out the [nomad-consul-separate-cluster](
+https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-separate-cluster) example for working
 sample code. Note that if you want to run Nomad and Consul on the same cluster, see the [nomad-consul-colocated-cluster 
-example](/examples/root-example/README.md) example instead.
+example](https://github.com/hashicorp/terraform-aws-nomad/tree/master/examples/root-example/README.md) example instead.
 
 
 ## Gotchas
@@ -98,9 +99,10 @@ https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/root-ex
 experimentation, but NOT recommended for production usage.
 
 To use the HTTP API, you first need to get the public IP address of one of the Nomad Instances. If you deployed the
-[nomad-consul-colocated-cluster](/examples/root-example/README.md) or
-[nomad-consul-separate-cluster](/examples/nomad-consul-separate-cluster/README.md)
-example, the [nomad-examples-helper.sh script](/examples/nomad-examples-helper/nomad-examples-helper.sh)
+[nomad-consul-colocated-cluster](https://github.com/hashicorp/terraform-aws-nomad/tree/master/examples/root-example/README.md) or
+[nomad-consul-separate-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-separate-cluster)
+example, the [nomad-examples-helper.sh script](
+https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-examples-helper/nomad-examples-helper.sh)
 will do the tag lookup for you automatically (note, you must have the [Google Cloud SDK](https://cloud.google.com/sdk/), 
 and the [Nomad agent](https://www.nomadproject.io/) installed locally):
 
@@ -168,7 +170,7 @@ https://www.nomadproject.io/docs/service-discovery/index.html) for details.
 
 This module creates the following architecture:
 
-![Nomad architecture](/_docs/architecture.png?raw=true)
+![Nomad architecture](https://github.com/hashicorp/terraform-google-nomad/blob/master/_docs/architecture.png?raw=true)
 
 This architecture consists of the following resources:
 
@@ -182,7 +184,8 @@ This module runs Nomad on top of a single-zone [Managed Instance Group](https://
 Typically, you should run the Instance Group with 3 or 5 Compute Instances spread across multiple [Zones](
 https://cloud.google.com/compute/docs/regions-zones/regions-zones), but regrettably, Terraform Managed Instance Groups
 [only support a single zone](https://github.com/terraform-providers/terraform-provider-google/issues/45). Each of the
-Compute Instances should be running a Google Image that has had Nomad installed via the [install-nomad](../install-nomad/README.md) module. You pass in the Google
+Compute Instances should be running a Google Image that has had Nomad installed via the [install-nomad](
+https://github.com/hashicorp/terraform-google-nomad/tree/master/modules/install-nomad) module. You pass in the Google
 Image name to run using the `source_image` input parameter.
 
 
@@ -256,7 +259,8 @@ Here are some of the main security considerations to keep in mind when using thi
 ### Encryption in transit
 
 Nomad can encrypt all of its network traffic. For instructions on enabling network encryption, have a look at the
-[How do you handle encryption documentation](../run-nomad/README.md#how-do-you-handle-encryption).
+[How do you handle encryption documentation](
+https://github.com/hashicorp/terraform-google-nomad/tree/master/modules/run-nomad#how-do-you-handle-encryption).
 
 
 ### Encryption at rest
