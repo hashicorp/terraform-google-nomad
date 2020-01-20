@@ -62,7 +62,7 @@ You can find the other parameters in [variables.tf](variables.tf).
 Check out the [nomad-consul-separate-cluster](
 https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-separate-cluster) example for working
 sample code. Note that if you want to run Nomad and Consul on the same cluster, see the [nomad-consul-colocated-cluster 
-example](https://github.com/hashicorp/terraform-aws-nomad/tree/master/MAIN.md) example instead.
+example](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/root-example) example instead.
 
 
 ## Gotchas
@@ -99,7 +99,7 @@ https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/root-ex
 experimentation, but NOT recommended for production usage.
 
 To use the HTTP API, you first need to get the public IP address of one of the Nomad Instances. If you deployed the
-[nomad-consul-colocated-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/MAIN.md) or
+[nomad-consul-colocated-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/root-example) or
 [nomad-consul-separate-cluster](https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-consul-separate-cluster)
 example, the [nomad-examples-helper.sh script](
 https://github.com/hashicorp/terraform-google-nomad/tree/master/examples/nomad-examples-helper/nomad-examples-helper.sh)
