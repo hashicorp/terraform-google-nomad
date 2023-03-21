@@ -72,10 +72,10 @@ data "template_file" "startup_script_nomad_server" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "consul_cluster" {
-  source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.4.0"
+  source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.5.0"
 
   gcp_project_id = var.gcp_project
-  gcp_region = var.gcp_region
+  gcp_region     = var.gcp_region
 
   cluster_name     = var.consul_server_cluster_name
   cluster_tag_name = var.consul_server_cluster_name
@@ -84,7 +84,8 @@ module "consul_cluster" {
   source_image = var.consul_server_source_image
   machine_type = var.consul_server_machine_type
 
-  startup_script = data.template_file.startup_script_consul.rendered
+  startup_script  = data.template_file.startup_script_consul.rendered
+  shutdown_script = data.template_file.shutdown_script_consul.rendered
 
   # WARNING!
   # In a production setting, we strongly recommend only launching a Consul Server cluster as private nodes.
@@ -102,6 +103,11 @@ data "template_file" "startup_script_consul" {
   vars = {
     consul_server_cluster_tag_name = var.consul_server_cluster_name
   }
+}
+
+# This Shutdown Script will execute when the server recieves a restart or stop event. We recommend passing in a bash script that executes the `consul leave` command.
+data "template_file" "shutdown_script_consul" {
+  template = file("${path.module}/shutdown-script-consul-server.sh")
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

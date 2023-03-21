@@ -29,18 +29,19 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "nomad_and_consul_servers" {
-  source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.4.0"
+  source = "git::git@github.com:hashicorp/terraform-google-consul.git//modules/consul-cluster?ref=v0.5.0"
 
   gcp_project_id = var.gcp_project
-  gcp_region = var.gcp_region
+  gcp_region     = var.gcp_region
 
   cluster_name     = var.nomad_consul_server_cluster_name
   cluster_size     = var.nomad_consul_server_cluster_size
   cluster_tag_name = var.nomad_consul_server_cluster_name
   machine_type     = var.nomad_consul_server_cluster_machine_type
 
-  source_image   = var.nomad_consul_server_source_image
-  startup_script = data.template_file.startup_script_nomad_consul_server.rendered
+  source_image    = var.nomad_consul_server_source_image
+  startup_script  = data.template_file.startup_script_nomad_consul_server.rendered
+  shutdown_script = data.template_file.shutdown_script_nomad_consul_server.rendered
 
   # WARNING!
   # In a production setting, we strongly recommend only launching a Nomad/Consul Server cluster as private nodes.
@@ -79,6 +80,11 @@ data "template_file" "startup_script_nomad_consul_server" {
     num_servers                    = var.nomad_consul_server_cluster_size
     consul_server_cluster_tag_name = var.nomad_consul_server_cluster_name
   }
+}
+data "template_file" "shutdown_script_nomad_consul_server" {
+  template = file(
+    "${path.module}/examples/root-example/shutdown-script-nomad-consul-server.sh",
+  )
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
